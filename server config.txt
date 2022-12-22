@@ -1,0 +1,83 @@
+server & socket-io link --> https://fertigation.herokuapp.com/
+
+-- Zone --
+1. for set setting '/zone/setting' POST
+	body --> {
+			    "id": ??,
+			    "name": "????",
+			    "minHumidity": ??,
+			    "maxHumidity": ??,
+			    "minPH": ??,
+			    "maxPH": ??,
+			    "minEC": ??,
+			    "maxEC": ??,
+			    "minOxygen": ??,
+			    "maxOxygen": ??
+			}
+2. for edit setting '/zone/setting' PUT
+	body --> {
+			    "id": ??,
+			    "minHumidity": ??,
+			    "maxHumidity": ??,
+			    "minPH": ??,
+			    "maxPH": ??,
+			    "minEC": ??,
+			    "maxEC": ??,
+			    "minOxygen": ??,
+			    "maxOxygen": ??
+			}
+	NOTE: without name
+3. for set readings '/zone/'  POST
+	body --> {
+		        "id": 1,
+		        "date": "2021-08-16 00:00:00",      !-- this format
+		        "ferta": 2,
+		        "fertb": 3,
+		        "fertc": 4,
+		        "water": 10,
+		        "ph": 3,
+		        "ec": 1,
+		        "moisture1": 5,
+		        "moisture2": 10,
+		        "moisture3": 8,
+		        "valve": 1,
+		        "oxygen": 30
+		    }
+4. for get zone plan '/zone/plan' GET
+	headers --> {
+				"id": ?
+				"date" : 'same format'
+				}
+
+-- House --
+1. for set setting '/house/setting' POST
+	body --> {
+				"id": ?,
+			    "name": "????",
+			    "minHumidity": 40,
+			    "maxHumidity": 75,
+			    "minTemperature": 20,
+			    "maxTemperature": 62
+			}
+2. for set readings '/house/' POST
+	body --> {
+				"id": 1,
+			    "date": "2021-07-15 00:00:00",
+			    "co2": 25,
+			    "air": 1,
+			    "air2": 0,
+			    "fan": 1,
+			    "light": 0,
+			    "temperature": "1,2",
+			    "humidity": "1,2"
+			}
+	Note: temperature & humidity created as string from all readings separted by ','
+
+
+For Socket-io "Real-Time"
+we have 4 events to listen
+1. zoneValveChanged --> {'zoneID': ??, "Valve": ??}
+2. houseFanChanged --> {'houseID': ??, "Fan": ??}
+3. houseAirChanged --> {'houseID': ??, "Air": ??}
+4. houseAir2Changed --> {'houseID': ??, "Air2": ??}
+Note: each event it return map has 2 parameters id and value
